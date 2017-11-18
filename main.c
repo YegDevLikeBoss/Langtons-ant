@@ -2,11 +2,15 @@
 #include <time.h>
 #include <GL/freeglut.h>
 
+#define SPACE 30
+
 int WindW, WindH;
 int i, mem, minus=-1;
 int alpha;
-static int tmx=6, tmy=6;
-int space[600][600];
+int x=SPACE/2, y=SPACE/2, count=0, neg=-1, x_num=1, y_num=1, ii, jj;
+static int tmx=0, tmy=0;
+
+int space[SPACE][SPACE];
 
 void Reshape(int width, int height) /*Reshape function*/
 {
@@ -31,19 +35,50 @@ void Draw(void) /*Window redraw function*/
   /*glRotatef(alpha, 0.0f, 1.0f, 0.0f);
   alpha += 4;
   if (alpha > 359) alpha = 0;*/
-    tmx = rand() %100;
-    tmy = rand() %100;
-    minus = rand() %2;
-    if (minus==1)
-        tmx*=-1;
-    minus = rand() %2;
-    if (minus==1)
-        tmy*=-1;
+
+
+
+
+
     glTranslated( ((double)tmx)/10000.0, ((double)tmy)/10000.0, 0);
 
 
-    i++;
-    printf("%d %d)", tmx,tmy);
+
+        if (x<0)
+            x=SPACE-1;
+            else if (x>=SPACE)
+                x=0;
+        if (y<0)
+            y=SPACE-1;
+            else if (y>=SPACE)
+                y=0;
+        if (space[y][x]==0)
+            space[y][x]=1;
+            else
+                space[y][x]=0;
+        if (count==0)
+        {
+            count=1;
+            y+=y_num;
+            if (space[y][x]==0)
+                x_num*=neg;
+
+        } else
+
+        if (count==1)
+        {
+            count=0;
+            x+=x_num;
+            if (space[y][x]==0)
+                y_num*=neg;
+
+       }
+
+    tmx+=x_num;
+    tmy+=y_num;
+
+
+    printf("%d %d %d %d)", tmx, tmy, x_num, y_num);
 
   glBegin(GL_QUADS);
     glVertex2f(0.01f, 0.01f);
@@ -67,7 +102,7 @@ void Visibility(int state) /*Visibility function*/
 void timf(int value) /*Timer function*/
 {
   glutPostRedisplay();  /*Redraw windows*/
-  glutTimerFunc(50, timf, 0); /*Setup next timer*/
+  glutTimerFunc(10, timf, 0); /*Setup next timer*/
 }
 
 /*void matr()
@@ -90,6 +125,14 @@ int main(int argc, char *argv[])
 
     printf("aaaaaaaa");
 
+
+    for (ii=0;ii<SPACE;ii++)
+        {
+            for (jj=0;jj<SPACE;jj++)
+            {
+                space[ii][jj]=0;
+            }
+        }
 
   srand(time(NULL));
   glutInit(&argc, argv);
