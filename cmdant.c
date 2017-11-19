@@ -1,101 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SPACE 30
-#define INIT 10
+#define SPACE 80
+#define INIT 8300
 
 int space[SPACE][SPACE];
-int x=SPACE/2, y=SPACE/2, ant_up, init=0;
+int x=SPACE/2, y=SPACE/2, ant_up, init=0, f;
 
 void matformat(char at);
-int up()
-{
-    if (init>INIT)
-    {
-        return 1;
-    }
-    y--;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    matformat('d');
-
-
-    if (space[x][y]!=0) {
-
-        right(); }
-        else
-            left();
-    init++;
-
-
-}
-void down()
-{
-    y++;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    matformat('d');
-
-
-    if (space[x][y]!=0) {
-
-        left(); }
-        else
-            right();
-    init++;
-
-
-}
-void left()
-{
-    x--;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    matformat('d');
-
-
-    if (space[x][y]!=0) {
-
-        up(); }
-        else
-            down();
-
-    init++;
-
-
-}
-void right()
-{
-    x++;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    matformat('d');
-
-
-    if (space[x][y]!=0) {
-
-        down(); }
-        else
-            up();
-
-    init++;
-
-
-}
-
+int up();
+void down();
+void left();
+void right();
 
 int main()
 {
     matformat('0');
-    matformat('d');
-    up();
-
-    if (init>INIT)
-        return 1;
+    f=up();
+    printf("%d\n", f);
     matformat('d');
     return 1;
 }
@@ -119,7 +41,10 @@ void matformat(char at)
         {
             for (j=0;j<SPACE;j++)
             {
-                printf("%d ", space[j][i]);
+                if (space[j][i]!=0)
+                    printf("# ");
+                    else
+                        printf("  ");
             }
             printf("\n");
         }
@@ -127,3 +52,86 @@ void matformat(char at)
     }
 }
 
+int up()
+{
+    if (init<INIT)
+    {
+
+    y--;
+    if (space[x][y]==0)
+        space[x][y]=1;
+        else space[x][y]=0;
+    /*matformat('d');*/
+
+
+    if (space[x][y]!=0) {
+
+        right(); }
+        else
+            left();
+    init++;
+    }
+    else
+        return 7;
+
+}
+void down()
+{
+    init++;
+    y++;
+    if (space[x][y]==0)
+        space[x][y]=1;
+        else space[x][y]=0;
+    /*matformat('d');*/
+
+
+    if (space[x][y]!=0) {
+
+        left(); }
+        else
+            right();
+
+
+
+
+}
+void left()
+{
+    init++;
+    x--;
+    if (space[x][y]==0)
+        space[x][y]=1;
+        else space[x][y]=0;
+    /*matformat('d');*/
+
+
+    if (space[x][y]!=0) {
+
+        up(); }
+        else
+            down();
+
+
+
+
+}
+void right()
+{
+    init++;
+    x++;
+    if (space[x][y]==0)
+        space[x][y]=1;
+        else space[x][y]=0;
+    /*matformat('d');*/
+
+
+    if (space[x][y]!=0) {
+
+        down(); }
+        else
+            up();
+
+
+
+
+}
