@@ -1,1 +1,2 @@
-# Langtons-ant
+# __Муравей Лэнгтона__
+## Информация о проекте [здесь](https://github.com/YegDevLikeBoss/Langtons-ant/wiki/Муравей-Лэнгтона)
