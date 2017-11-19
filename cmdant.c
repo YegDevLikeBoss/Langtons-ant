@@ -2,13 +2,13 @@
 #include <stdlib.h>
 
 #define SPACE 80
-#define INIT 8300
+#define INIT 10000
 
 int space[SPACE][SPACE];
-int x=SPACE/2, y=SPACE/2, ant_up, init=0, f;
+int x=SPACE/2, y=SPACE/2, init=0;
 
 void matformat(char at);
-int up();
+void up();
 void down();
 void left();
 void right();
@@ -16,8 +16,7 @@ void right();
 int main()
 {
     matformat('0');
-    f=up();
-    printf("%d\n", f);
+    up();
     matformat('d');
     return 1;
 }
@@ -52,86 +51,46 @@ void matformat(char at)
     }
 }
 
-int up()
+void up()
 {
     if (init<INIT)
     {
-
-    y--;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    /*matformat('d');*/
-
-
-    if (space[x][y]!=0) {
-
-        right(); }
-        else
-            left();
-    init++;
+        y--; /*Changing coordinates*/
+        if (y<0) /*Looping space*/
+            (y=SPACE-1);
+        (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+        (space[x][y]!=0) ? right() : left() ; /*Recurring to next move*/
+        init++; /*Initialization loop*/
     }
     else
-        return 7;
+        return;
 
+    return;
 }
 void down()
 {
-    init++;
-    y++;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    /*matformat('d');*/
-
-
-    if (space[x][y]!=0) {
-
-        left(); }
-        else
-            right();
-
-
-
-
+    init++; /*Initialization loop*/
+    y++; /*Changing coordinates*/
+    if (y==SPACE) /*Looping space*/
+            y=0;
+    (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    (space[x][y]!=0) ? left() : right() ; /*Recurring to next move*/
 }
 void left()
 {
-    init++;
-    x--;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    /*matformat('d');*/
-
-
-    if (space[x][y]!=0) {
-
-        up(); }
-        else
-            down();
-
-
-
-
+    init++; /*Initialization loop*/
+    x--; /*Changing coordinates*/
+    if (x<0) /*Looping space*/
+            x=SPACE-1;
+    (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    (space[x][y]!=0) ? up() : down() ; /*Recurring to next move*/
 }
 void right()
 {
-    init++;
-    x++;
-    if (space[x][y]==0)
-        space[x][y]=1;
-        else space[x][y]=0;
-    /*matformat('d');*/
-
-
-    if (space[x][y]!=0) {
-
-        down(); }
-        else
-            up();
-
-
-
-
+    init++; /*Initialization loop*/
+    x++; /*Changing coordinates*/
+    if (x==SPACE) /*Looping space*/
+            x=0;
+    (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    (space[x][y]!=0) ? down() : up() ; /*Recurring to next move*/
 }
