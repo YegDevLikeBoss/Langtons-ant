@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<unistd.h>
 
-#define SPACE 80
-#define INIT 10000
+#define SPACE 40
+#define INIT 8500
+#define A 1
 
 int space[SPACE][SPACE];
-int x=SPACE/2, y=SPACE/2, init=0;
+int x=SPACE/2, y=SPACE/2, init=0, cnt=0;
 
 void matformat(char at);
 void up();
@@ -59,6 +61,11 @@ void up()
         if (y<0) /*Looping space*/
             (y=SPACE-1);
         (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+        system("cls");
+        matformat('d');
+        cnt++;
+    printf("\n %d", cnt);
+        usleep(A);
         (space[x][y]!=0) ? right() : left() ; /*Recurring to next move*/
         init++; /*Initialization loop*/
     }
@@ -74,6 +81,11 @@ void down()
     if (y==SPACE) /*Looping space*/
             y=0;
     (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    system("cls");
+    matformat('d');
+    cnt++;
+    printf("\n %d", cnt);
+    usleep(A);
     (space[x][y]!=0) ? left() : right() ; /*Recurring to next move*/
 }
 void left()
@@ -83,6 +95,11 @@ void left()
     if (x<0) /*Looping space*/
             x=SPACE-1;
     (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    system("cls");
+    matformat('d');
+    cnt++;
+    printf("\n %d", cnt);
+    usleep(A);
     (space[x][y]!=0) ? up() : down() ; /*Recurring to next move*/
 }
 void right()
@@ -92,5 +109,10 @@ void right()
     if (x==SPACE) /*Looping space*/
             x=0;
     (space[x][y]==0) ? (space[x][y]=1) : (space[x][y]=0) ; /*Inverting cell value*/
+    system("cls");
+    matformat('d');
+    cnt++;
+    printf("\n %d", cnt);
+    usleep(A);
     (space[x][y]!=0) ? down() : up() ; /*Recurring to next move*/
 }
